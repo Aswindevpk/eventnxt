@@ -57,7 +57,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates',   #the templates in templates folder inside base directory
+            BASE_DIR / 'templates',  # Default templates directory
+            BASE_DIR / 'users' / 'templates' /'users',  # Users app templates directory
+            BASE_DIR / 'venues' / 'templates'/ 'venues',  # Venues app templates directory
         ],
         'APP_DIRS': True,
         'OPTIONS': {
