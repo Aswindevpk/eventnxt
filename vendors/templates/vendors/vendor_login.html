@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
+    <title>Vendor Login</title>
 </head>
 <body>
-    <h2>User Login</h2>
+    <h2>Vendor Login</h2>
     <form method="post">
         {% csrf_token %}
-        <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email"><br>
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br>
         <button type="submit">Login</button>

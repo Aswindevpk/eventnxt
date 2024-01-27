@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'venues',
+    'vendors',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,7 +60,7 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR / 'templates',  # Default templates directory
             BASE_DIR / 'users' / 'templates' /'users',  # Users app templates directory
-            BASE_DIR / 'venues' / 'templates'/ 'venues',  # Venues app templates directory
+            BASE_DIR / 'vendors' / 'templates'/ 'vendors',  # Venues app templates directory
         ],
         'APP_DIRS': True,
         'OPTIONS': {
