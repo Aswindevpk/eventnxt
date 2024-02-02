@@ -1,37 +1,83 @@
-<!-- templates/registration/register.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendor Registration</title>
-</head>
-<body>
-    <h2>Welcome to Eventnxt</h2>
-    <h3>Contact Details</h3>
-    <form method="post">
-        {% csrf_token %}
-        <label for="name">Name of Business</label><br>
-        <input type="text" id="name" name="name"><br>
-        <label for="city">City/Town</label><br>
-        <select id="city" name="city">
-            <option value=""></option>
-            <option value="Malappuram">Malappuram</option>
-            <option value="kozhikkod">kozhikkod</option>
-            <option value="Kannur">Kannur</option>
-            <option value="Palakkad">Palakkad</option>
-        </select><br>
-        <label for="email">Email</label><br>
-        <input type="email" id="email" name="email"><br>
-        <label for="phone_number">Phone Number:</label><br>
-        <input type="text" id="phone_number" name="phone_number"><br>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
-        <h3>Login information</h3>
-        <label for="username">User name:</label><br>
-        <input type="text" id="username" name="username"><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br>
-        <button type="submit">Register</button>
-    </form>
-</body>
-</html>
+<style>
+    body {
+        background: #E9F5F5;
+    }
+
+    .registration-container {
+        max-width: 400px;
+        margin: auto;
+        margin-top: 50px;
+        margin-bottom: 250px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .registration-form {
+        margin-top: 20px;
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .login-head {
+        text-align: center;
+    }
+</style>
+<div class="container">
+    <div class="logo-container">
+        <img src={% static "assets/logo.png" %} alt="Logo" width="100">
+    </div>
+    <div class="registration-container">
+        <div class="login-head">
+            <h5>Welcome to Eventnxt</h2>
+        </div>
+        <form class="registration-form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name of Business" required>
+            </div>
+            <div class="form-group">
+                <select id="city" name="city">
+                    <option value=""></option>
+                    <option value="Malappuram">Malappuram</option>
+                    <option value="kozhikkod">kozhikkod</option>
+                    <option value="Kannur">Kannur</option>
+                    <option value="Palakkad">Palakkad</option>
+                </select><br>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email here" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" class="form-control"  id="phone_number" name="phone_number" placeholder="Phone number" required>
+            </div>
+            <h6>Login Information</h6>
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-danger btn-block">Register Business</button>
+            <div class="login-link">
+                <p>Already have an account? <a href={% url "vendor_login" %}>Log In</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+

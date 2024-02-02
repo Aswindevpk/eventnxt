@@ -1,34 +1,102 @@
-<!-- home.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include "navbar.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-</head>
-<body>
-    <div>
-        <a href="">logo</a>
-        <input type="text" name='serach' placeholder="search">
-        <a href="profile">profile</a>
+<style>
+            /* for the category section  */
+
+            .category-container {
+                margin: auto;
+                margin-top: 10px;
+                display: flex;
+                justify-content: space-around;
+            }
+    
+            .category-card {
+                text-align: center;
+            }
+    
+            .category-img {
+                object-fit: cover;
+                height: 100px;
+                border-radius: 8px;
+            }
+
+            /* for the booking section  */
+
+        .booking-container {
+            margin: auto;
+            margin-top: 80px;
+            margin-bottom: 400px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .booking-card {
+            width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .booking-img {
+            object-fit: cover;
+            height: 150px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+</style>
+<div class="container-fluid">
+    <div class="category-container">
+        <div class="category-card">
+            <a href="">
+                <img src= {% static "assets/Premium_Venues.png" %} class="category-img" alt="Wedding">
+            </a>
+        </div>
+        <div class="category-card">
+            <a href="">
+                <img src={% static "assets/Weddings.png"%}  class="category-img" alt="Wedding">
+            </a>
+        </div>
+        <div class="category-card">
+            <a href="">
+                <img src= {% static "assets/Engagement.png" %}  class="category-img" alt="Wedding">
+            </a>
+        </div>
+        <div class="category-card">
+            <a href="">
+                <img src= {% static "assets/Birthday.png" %}  class="category-img" alt="Wedding">
+            </a>
+        </div>
+        <div class="category-card">
+            <a href="">
+                <img src= {% static "assets/Family_Functon.png" %}  class="category-img" alt="Wedding">
+            </a>
+        </div>
     </div>
-    <div>
-        {% for category in categories_list %}
-        <a href="">{{category.category}}</a>
-        {% endfor %}
-    </div>
-    <div>
+</div>
+
+<div class="container-fluid">
+    <div class="booking-container">
         {% for venue in venues %}
-        <div>
-            <img src="" alt="image"><br>
-            <span>Name : {{venue.business_name}}</span><br>
-            <span>place : {{venue.city}}</span><br>
-            <span>phone number: {{venue.phone_number}}</span><br>
-            <span>Location: </span><br>
-            <a href="venue_details">Request Pricing</a>
+        <div class="booking-card card">
+            <img src= {% static "assets/venue.jpg" %} class="booking-img" alt="Category 1">
+            <div class="card-body">
+                <h5 class="card-title">{{venue.business_name}}</h5>
+                <span class="card-text">Place:  {{venue.city}}</span><br>
+                <span class="card-text">Location: {{venue.phone_number}}</span><br><br>
+                <span>
+                    <a href={% url "venue_details" %} class="btn btn-danger">More Details</a>
+                </span>
+            </div>
         </div>
         {% endfor %}
     </div>
-</body>
-</html>
+</div>
+
+{% endblock content %}
+

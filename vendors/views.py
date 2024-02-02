@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate,logout
 from .models import *
 
 
 def vendor_home(request):
     return render(request, 'vendor_home.html')
+
+def logoutVendor(request):
+    logout(request)
+    return redirect('vendor_login')
 
 
 def vendor_register(request):

@@ -1,23 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venue Details</title>
-</head>
-<body>
-    <div class="container">
-        <div>
-            <h2>{{venue.business_name }}</h2>
-            <p><strong>Place:</strong> {{ venue.address }}</p>
-            <p><strong>Location:</strong><a href="">view in maps</a></p>
-            <a href="">request pricing</a>
-            <a href="">check availability</a>
-            <!-- You can add more details here as needed -->
-            <h3>About</h3>
-            <h3>Services provided</h3>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% include "navbar.html" %}
+<style>
+          /* venue details  */
+          .venue-details-container {
+            margin: auto;
+            padding: 3rem 10rem;
+        }
+
+        .venue-top {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .venue-photo img {
+            border-radius: 10px;
+            width: 40vw;
+            height: 50vh;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .venue-details {
+            flex: 1;
+            text-align: right;
+        }
+        .venue-details h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+        .basic-details {
+            margin-bottom: 20px;
+            color: #555555;
+        }
+
+        .basic-details p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .request-pricing button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .request-pricing button:hover {
+            background-color: #0056b3;
+        }
+
+        .short-description ,
+        .services {
+            margin-bottom: 20px;
+        }
+
+        .short-description h2 ,
+        .services h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+
+        .short-description p,
+        .services ul {
+            margin: 0;
+            line-height: 1.5;
+            color: #555555;
+        }
+
+        .services li {
+            margin-bottom: 5px;
+        }
+</style>
+<div class="venue-details-container">
+    <div class="venue-top">
+        <!-- Venue Photo -->
+        <div class="venue-photo">
+            <img src="assets/venue.jpg" alt="Venue Photo">
+        </div>
+
+        <!-- Venue Details -->
+        <div class="venue-details">
+            <!-- Basic Details -->
+            <div class="basic-details">
+                <h1>Venue Name</h1>
+                <p>Place: City </p>
+                <p>Address: Street, City</p>
+                <p>Location: Near Landmark</p>
+                <p>check availability</p>
+                <input type="date" id="dateInput">
+            </div>
+            <!-- Request Pricing -->
+            <div class="request-pricing">
+                <button type="button">Request Pricing</button>
+            </div>
         </div>
     </div>
-    <!-- Add any additional JavaScript or external libraries here -->
-</body>
-</html>
+
+    <!-- Short Description -->
+    <div class="short-description">
+        <h2>About the Auditorium</h2>
+        <p>This is a short description about the auditorium. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit. Sed
+            do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+
+    <!-- Services Provided -->
+    <div class="services">
+        <h2>Services Provided</h2>
+        <ul>
+            <li>Service 1</li>
+            <li>Service 2</li>
+            <li>Service 3</li>
+        </ul>
+    </div>
+</div>
+{% endblock content %}
+

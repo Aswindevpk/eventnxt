@@ -1,17 +1,26 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate,logout
 from .models import *
 from vendors.models import *
 
 
 
+def logoutUser(request):
+    logout(request)
+    return redirect('user_login')
+
 def user_home(request):
-    categories_list = categories.objects.all()
-    venues = VendorProfile.objects.all()
+    if request.user.is_authenticated:
+        categories_list = categories.objects.all()
+        venues = VendorProfile.objects.all()
 
-    context = {'categories_list':categories_list,'venues':venues}
-    return render(request, 'usr_home.html',context)
+        context = {'categories_list':categories_list,'venues':venues}
+        return render(request, 'usr_home.html',context)
+    else:
+        return redirect('user_login')
 
+def booking_details(request):
+    return render(request, 'usr_bookings.html')
 
 def venue_details(request):
     return render(request, 'usr_venue_details.html')

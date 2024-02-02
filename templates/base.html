@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditorium Booking</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* for the footer section   */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+
+        footer {
+            background-color: #D9D9D9;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            bottom: 0;
+            align-items: center;
+            text-align: left;
+            width: 100%;
+        }
+
+        .footer-left,
+        .follow-us,
+        .logo-container {
+            flex-grow: 1;
+        }
+
+        .footer-heading {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .footer-links,
+        .follow-us-links {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li,
+        .follow-us-links li {
+            margin-bottom: 5px;
+        }
+
+        .footer-links a,
+        .follow-us-links a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover,
+        .follow-us-links a:hover {
+            text-decoration: underline;
+        }
+
+        .logo {
+            width: 80px;
+            /* Adjust the width of the logo */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            /* Center the logo */
+        }
+    </style>
+</head>
+
+<body>
+    {% block content %}
+    {% endblock content  %}
+
+    <footer>
+        <div class="footer-left">
+            <div class="footer-heading">Information</div>
+            <ul class="footer-links">
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Terms & Privacy</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Register your business</a></li>
+            </ul>
+        </div>
+        <div class="follow-us">
+            <div class="footer-heading">Follow us</div>
+            <ul class="follow-us-links">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </div>
+        <div class="logo-container">
+            <img src={% static "assets/logo.png" %} alt="Logo" class="logo">
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
