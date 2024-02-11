@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<style>
+  body{
+    height: 500px;
+  }
+</style>
+<div class="container mt-5">
+    <div class="container d-flex flex-column align-items-center">
+      <h4 class="font-weight-bold">Venue Request Placed Successfully</h4>
+      <p>with Booking ID :{{booking_number}}</p>
+    </div>
+</div>
+
+{% endblock content %}

@@ -35,6 +35,15 @@
     .login-head {
         text-align: center;
     }
+
+    select {
+        padding: 8px;
+        font-size: 16px;
+        width: 100%%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+    }
 </style>
 <div class="container">
     <div class="logo-container">
@@ -44,18 +53,27 @@
         <div class="login-head">
             <h5>Welcome to Eventnxt</h2>
         </div>
-        <form class="registration-form" method="post">
+        <form class="registration-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Name of Business" required>
             </div>
             <div class="form-group">
-                <select id="city" name="city">
-                    <option value=""></option>
+                <select id="city" name="city" required>
+                    <option value="" disabled selected>Select City</option>
                     <option value="Malappuram">Malappuram</option>
-                    <option value="kozhikkod">kozhikkod</option>
+                    <option value="kozhikkod">Calicut</option>
                     <option value="Kannur">Kannur</option>
                     <option value="Palakkad">Palakkad</option>
+                </select><br>
+            </div>
+            <div class="form-group">
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select a Category</option>
+                    <option value="Weddding">Wedding</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Reunion">Reunion</option>
+                    <option value="Family function">Family function</option>
                 </select><br>
             </div>
             <div class="form-group">
@@ -64,6 +82,25 @@
             <div class="form-group">
                 <input type="tel" class="form-control"  id="phone_number" name="phone_number" placeholder="Phone number" required>
             </div>
+            <div class="form-group">
+                <input type="number" class="form-control"  id="capacity" name="capacity" placeholder="Venue capacity" required>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="acCheckbox" name="acCheckbox" >
+                <label class="form-check-label" for="acCheckbox">A/C</label>
+            </div>
+            <div class="form-group">
+                <label for="fileInput">Venue image :</label>
+                <input type="file" class="form-control-file"  id="image" name="image" required>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" id="desc" name="desc" rows="4" placeholder="About the Venue, services etc." required></textarea>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="location" name="location" placeholder="location from google maps" required></input>
+            </div>
+
             <h6>Login Information</h6>
             <div class="form-group">
                 <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>

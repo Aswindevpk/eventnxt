@@ -5,7 +5,7 @@
 
 <style>
             /* for the category section  */
-
+            
             .category-container {
                 margin: auto;
                 margin-top: 10px;
@@ -53,12 +53,12 @@
 <div class="container-fluid">
     <div class="category-container">
         <div class="category-card">
-            <a href="">
+            <a href="{% url "search_venue" %}">
                 <img src= {% static "assets/Premium_Venues.png" %} class="category-img" alt="Wedding">
             </a>
         </div>
         <div class="category-card">
-            <a href="">
+            <a href="{% url "search_venue" %}">
                 <img src={% static "assets/Weddings.png"%}  class="category-img" alt="Wedding">
             </a>
         </div>
@@ -84,13 +84,11 @@
     <div class="booking-container">
         {% for venue in venues %}
         <div class="booking-card card">
-            <img src= {% static "assets/venue.jpg" %} class="booking-img" alt="Category 1">
+            <img src="media/{{venue.image}}" class="booking-img" alt="Category 1">
             <div class="card-body">
                 <h5 class="card-title">{{venue.business_name}}</h5>
-                <span class="card-text">Place:  {{venue.city}}</span><br>
-                <span class="card-text">Location: {{venue.phone_number}}</span><br><br>
                 <span>
-                    <a href={% url "venue_details" %} class="btn btn-danger">More Details</a>
+                    <a href={% url "venue_details" venue.id %} class="btn btn-danger">More Details</a>
                 </span>
             </div>
         </div>

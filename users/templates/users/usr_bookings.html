@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block content %}
-  {% include 'navbar.html' %}
+{% include 'navbar.html' %}
 
   <style>
     /* for the bookiing section  */
     .card {
       width: 100%;
-      margin-bottom: 400px;
+      margin-bottom: 50px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
@@ -48,37 +48,25 @@
     }
   </style>
   <div class="container">
+    {% for booking in all_booking %}
     <div class="card">
-      <div class="card-header">Booking ID: 123456</div>
+      <div class="card-header">Booking ID: {{booking.id}}</div>
       <div class="card-body">
-        <p>Date of Booking: 2022-03-15</p>
+        <p>Date of Booking: {{booking.date}}</p>
+        <p>No of persons : {{booking.persons}}</p>
         <p>
-          Status: <span class="status-pending">Pending</span>
+          Status: <span>{{booking.status}}</span>
         </p>
         <div class="auditorium-details">
           <h5>Auditorium Details</h5>
-          <p>Auditorium: A</p>
-          <p>Location: City 1</p>
+          <p>Auditorium: {{booking.vendor}}</p>
+          <p>Total Amount : {{booking.Total}}/-</p>
+          <p>Advance to be Paid : {{booking.Advance}}/-</p>
         </div>
-        <button type="button" class="btn btn-primary download-button" data-toggle="modal" data-target="#pricingModal123456">View Invoice</button>
+        <button type="button" class="btn btn-primary" >Pay Advance</button>
+        <button type="button" class="btn btn-danger" >Cancel Request</button>
       </div>
     </div>
-
-    <div class="modal fade" id="pricingModal123456" tabindex="-1" role="dialog" aria-labelledby="pricingModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="pricingModalLabel">Invoice - Booking ID: 123456</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          </div>
-          <div class="modal-body">
-            <img src="assets/invoice.png" alt="Invoice Image" style="max-width: 100%;" />
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 {% endblock %}

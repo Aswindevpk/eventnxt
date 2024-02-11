@@ -39,11 +39,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
   <div class="container-fluid">
     <a class="navbar-brand" href={% url "user_home" %}><img src={% static 'assets/logo.png' %} alt="Logo" /></a>
-    <form class="form-inline search-form">
+    <form class="form-inline search-form" action="{% url 'search_venue' %}" method="GET">
       <div class="input-group">
-        <input type="text" class="form-control form-control-full" placeholder="Search" aria-label="Search" aria-describedby="searchButton" />
+        <input type="text" class="form-control form-control-full" placeholder="Search" aria-label="Search" aria-describedby="searchButton"  name="query"/>
         <div class="input-group-append">
-          <button class="btn btn-outline-dark" type="button" id="searchButton">Search</button>
+          <button class="btn btn-outline-dark" type="submit" id="searchButton">Search</button>
         </div>
       </div>
     </form>

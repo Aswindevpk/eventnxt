@@ -6,7 +6,7 @@
 {% include "navbar.html" %}
 <style>
           /* venue details  */
-          .venue-details-container {
+        .venue-details-container {
             margin: auto;
             padding: 3rem 10rem;
         }
@@ -16,6 +16,7 @@
             flex-direction: row;
             align-items: center;
             margin-bottom: 20px;
+            gap: 300px;
         }
 
         .venue-photo img {
@@ -82,41 +83,59 @@
         .services li {
             margin-bottom: 5px;
         }
+
+        .badge{
+            background-color: black;
+            border-radius: 5px;
+            padding: 4px 8px;
+            color: white;
+        }
 </style>
 <div class="venue-details-container">
     <div class="venue-top">
         <!-- Venue Photo -->
         <div class="venue-photo">
-            <img src="assets/venue.jpg" alt="Venue Photo">
+            <img src="/media/{{venue.image}}" alt="Venue Photo">
         </div>
 
         <!-- Venue Details -->
         <div class="venue-details">
             <!-- Basic Details -->
             <div class="basic-details">
-                <h1>Venue Name</h1>
-                <p>Place: City </p>
-                <p>Address: Street, City</p>
-                <p>Location: Near Landmark</p>
-                <p>check availability</p>
-                <input type="date" id="dateInput">
-            </div>
-            <!-- Request Pricing -->
-            <div class="request-pricing">
-                <button type="button">Request Pricing</button>
+                <h1 style="">{{venue.business_name}}</h1>
+                <span class="badge">{{venue.category}}</span>
+                <p>Place:{{venue.city}}</p>
+                <p>Capacity: {{venue.capacity}}</p>
+                {% if venue.ac %}
+                <p>A/C</p>
+                {% endif %}
+                <p>check availability</p><br>
+                <form action="{% url "booking_request" %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="venue" value="{{venue.id}}">
+                    <input type="hidden" name="user" value="{{user.id}}">
+                    <div class="form-group">
+                        <input  type="date" id="dateInput" name='date' required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="persons" name="persons" placeholder="No of persons" required>
+                    </div>
+                    <div class="request-pricing">
+                        <button type="submit">Request Pricing</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
     <!-- Short Description -->
     <div class="short-description">
         <h2>About the Auditorium</h2>
-        <p>This is a short description about the auditorium. Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit. Sed
-            do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>{{venue.desc}}</p>
     </div>
+    <iframe src="{{venue.location}}" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-    <!-- Services Provided -->
+    
+    {% comment %} <!-- Services Provided -->
     <div class="services">
         <h2>Services Provided</h2>
         <ul>
@@ -124,7 +143,8 @@
             <li>Service 2</li>
             <li>Service 3</li>
         </ul>
-    </div>
+    </div> {% endcomment %}
 </div>
 {% endblock content %}
+
 

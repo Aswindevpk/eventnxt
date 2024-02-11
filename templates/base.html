@@ -13,8 +13,9 @@
         body {
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            overflow-y: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         footer {
@@ -22,8 +23,8 @@
             padding: 20px;
             color: #333;
             display: flex;
+            margin-top: auto;
             justify-content: space-between;
-            bottom: 0;
             align-items: center;
             text-align: left;
             width: 100%;

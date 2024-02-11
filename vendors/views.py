@@ -6,6 +6,8 @@ from .models import *
 def vendor_home(request):
     return render(request, 'vendor_home.html')
 
+
+
 def logoutVendor(request):
     logout(request)
     return redirect('vendor_login')
@@ -15,16 +17,24 @@ def vendor_register(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         city = request.POST.get('city')
+        category = request.POST.get('category')
         email = request.POST.get('email')
         phone_number = request.POST.get('phone_number')
+        image = request.FILES.get('image')
+        desc = request.POST.get('desc')
         username = request.POST.get('username')
         password = request.POST.get('password')
+        ac = request.POST.get('acCheckbox') == 'on'
+        capacity = request.POST.get('capacity')
+        location = request.POST.get('location')
+
+
         
         # Create a new Django user
         user = User.objects.create_user(username=username,email=email ,password=password)
         
         # Create a user profile associated with the new user
-        profile = VendorProfile.objects.create(user=user, business_name=name, city=city, phone_number=phone_number)
+        profile = VendorProfile.objects.create(user=user, business_name=name, city=city,desc=desc, phone_number=phone_number,image=image,category=category,ac=ac,capacity=capacity,location=location)
         profile.save()
         
         return redirect('vendor_login') 

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate,logout
 from .models import *
 from vendors.models import *
+from django.db.models import Q
+from django.http import HttpResponse
 
 
 
@@ -11,19 +13,50 @@ def logoutUser(request):
 
 def user_home(request):
     if request.user.is_authenticated:
-        categories_list = categories.objects.all()
         venues = VendorProfile.objects.all()
 
-        context = {'categories_list':categories_list,'venues':venues}
+        context = {'venues':venues}
         return render(request, 'usr_home.html',context)
     else:
         return redirect('user_login')
+    
+def search_venue(request):
+    query = request.GET.get('query')
+    if query:
+        results = VendorProfile.objects.filter(Q(business_name__icontains=query) | Q(category__icontains=query))
+    else:
+        results = VendorProfile.objects.none()
+    context = {'venues':results}
+    return render(request, 'usr_home.html',context)
 
 def booking_details(request):
-    return render(request, 'usr_bookings.html')
+    user = UserProfile.objects.get(user=request.user.id)
+    all_booking = bookings.objects.filter(user=user)
+    context = {'all_booking':all_booking}
+    return render(request, 'usr_bookings.html',context)
 
-def venue_details(request):
-    return render(request, 'usr_venue_details.html')
+def booking_request(request):
+    if request.method == 'POST':
+        date = request.POST.get('date')
+        user = request.POST.get('user')
+        venue = request.POST.get('venue')
+        persons = request.POST.get('persons')
+
+        booking = bookings.objects.create(date=date,user_id=user,vendor_id=venue,persons=persons)
+        booking.save()
+
+        booking_number = booking.id
+
+        context = {'booking_number':booking_number}
+    
+    return render(request, 'booking_sucess.html',context )
+
+def venue_details(request,pk):
+    venue = VendorProfile.objects.get(id=pk)
+    user = UserProfile.objects.get(user = int(request.user.id))
+
+    context ={'venue':venue, 'user':user}
+    return render(request, 'usr_venue_details.html',context)
 
 def user_profile(request):
     return render(request, 'usr_profile.html')
