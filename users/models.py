@@ -18,6 +18,8 @@ class bookings(BaseModel):
     date =models.CharField(max_length=50)
     persons = models.CharField(max_length=10)
     status =models.CharField(max_length=50,null=True,blank=True)
+    paid = models.BooleanField(default=False)
+    billed = models.BooleanField(default=False)
     Total =models.CharField(max_length=50,null=True,blank=True)
     Advance =models.CharField(max_length=50,null=True,blank=True)
     user =models.ForeignKey(UserProfile,on_delete=models.CASCADE)

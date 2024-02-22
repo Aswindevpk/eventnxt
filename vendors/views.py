@@ -1,11 +1,31 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate,logout
 from .models import *
+from users.models import *
 
 
 def vendor_home(request):
-    return render(request, 'vendor_home.html')
+    vendor = VendorProfile.objects.get(user=request.user.id)
+    all_booking = bookings.objects.filter(vendor=vendor)
+    context = {'all_booking':all_booking}
+    return render(request, 'vendor_home.html',context)
 
+def booking_pricing(request,pk):
+    if request.method == 'POST':
+        advance = request.POST.get('advance')
+        total = request.POST.get('total')
+        booking = bookings.objects.get(id=pk)
+        booking.Total = total
+        booking.billed = True
+        booking.Advance = advance
+        booking.save()
+
+    return redirect('vendor_home')
+
+
+def rejectBooking(request,pk):
+    booking = bookings.objects.get(id=pk)
+    
 
 
 def logoutVendor(request):

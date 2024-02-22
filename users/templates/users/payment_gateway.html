@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<style>
+  body{
+    height: 500px;
+  }
+</style>
+<div class="container mt-5">
+    <div class="container d-flex flex-column align-items-center">
+      <h4 class="font-weight-bold">Payment Gateway</h4>
+      <p>Booking ID :{{booking.id}}</p>
+      <p>Amount to pay:{{booking.Advance}}</p>
+      <a href="{% url "confirm_booking" booking.id %}" class="btn btn-primary">confirm payment</a>
+    </div>
+</div>
+
+{% endblock content %}

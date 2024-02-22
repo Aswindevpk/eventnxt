@@ -54,17 +54,24 @@
       <div class="card-body">
         <p>Date of Booking: {{booking.date}}</p>
         <p>No of persons : {{booking.persons}}</p>
-        <p>
-          Status: <span>{{booking.status}}</span>
-        </p>
         <div class="auditorium-details">
           <h5>Auditorium Details</h5>
           <p>Auditorium: {{booking.vendor}}</p>
+        </div>
+        {% if not booking.paid %}
+        {% if booking.billed %}
+        <div>
           <p>Total Amount : {{booking.Total}}/-</p>
           <p>Advance to be Paid : {{booking.Advance}}/-</p>
         </div>
-        <button type="button" class="btn btn-primary" >Pay Advance</button>
-        <button type="button" class="btn btn-danger" >Cancel Request</button>
+        <a href="{% url "pay_advance" booking.id %}" class="btn btn-primary" >Pay Advance</a>
+        {% endif %}
+        <a href="{% url "cancel_booking" booking.id %}" class="btn btn-danger" >Cancel Request</a>
+        {% endif %}
+        {% if booking.paid %}
+        <p>Balance to be paid (Total-Advance):{{balance}}</p>
+        <p class="text-success">Booking Confirmed</p>
+        {% endif %}
       </div>
     </div>
     {% endfor %}

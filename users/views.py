@@ -3,7 +3,6 @@ from django.contrib.auth import login, authenticate,logout
 from .models import *
 from vendors.models import *
 from django.db.models import Q
-from django.http import HttpResponse
 
 
 
@@ -14,7 +13,6 @@ def logoutUser(request):
 def user_home(request):
     if request.user.is_authenticated:
         venues = VendorProfile.objects.all()
-
         context = {'venues':venues}
         return render(request, 'usr_home.html',context)
     else:
@@ -35,25 +33,40 @@ def booking_details(request):
     context = {'all_booking':all_booking}
     return render(request, 'usr_bookings.html',context)
 
+def cancel_booking(request,pk):
+    booking = bookings.objects.get(id=pk)
+    booking.delete()
+    return redirect('booking_details')
+
+def confirm_booking(request,pk):
+    booking = bookings.objects.get(id=pk)
+    booking.paid = True
+    booking.save()
+    return render(request, 'booking_confirm.html')
+
+
+def pay_advance(request,pk):
+    booking = bookings.objects.get(id=pk)
+    context = {'booking':booking}
+    return render(request, 'payment_gateway.html',context)
+
+
 def booking_request(request):
     if request.method == 'POST':
         date = request.POST.get('date')
         user = request.POST.get('user')
         venue = request.POST.get('venue')
         persons = request.POST.get('persons')
-
         booking = bookings.objects.create(date=date,user_id=user,vendor_id=venue,persons=persons)
         booking.save()
-
         booking_number = booking.id
-
         context = {'booking_number':booking_number}
     
     return render(request, 'booking_sucess.html',context )
 
 def venue_details(request,pk):
     venue = VendorProfile.objects.get(id=pk)
-    user = UserProfile.objects.get(user = int(request.user.id))
+    user = UserProfile.objects.get(user = request.user.id)
 
     context ={'venue':venue, 'user':user}
     return render(request, 'usr_venue_details.html',context)
@@ -71,7 +84,7 @@ def user_register(request):
         
         # Create a new Django user
         user = User.objects.create_user(username=email, password=password)
-        
+
         # Create a user profile associated with the new user
         profile = UserProfile.objects.create(user=user, name=name, phone_number=phone_number)
         profile.save()
