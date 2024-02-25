@@ -48,11 +48,9 @@ def vendor_register(request):
         capacity = request.POST.get('capacity')
         location = request.POST.get('location')
 
-
-        
         # Create a new Django user
         user = User.objects.create_user(username=username,email=email ,password=password)
-        
+    
         # Create a user profile associated with the new user
         profile = VendorProfile.objects.create(user=user, business_name=name, city=city,desc=desc, phone_number=phone_number,image=image,category=category,ac=ac,capacity=capacity,location=location)
         profile.save()

@@ -3,6 +3,112 @@
 
 {% block content %}
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.registration-form').submit(function(event) {
+      event.preventDefault(); // Prevent default form submission
+      
+      // Clear any previous error messages
+      $('.error-message').remove();
+      
+      // Perform form validation
+      var name = $('#name').val();
+      var email = $('#email').val();
+      var phone_number = $('#phone_number').val();
+      var password = $('#password').val();
+      var isValid = true;
+
+      if (name.trim() === '') {
+        $('#name').after('<div class="error-message text-danger">Name is required.</div>');
+        isValid = false;
+      } else if (!isValidName(name)) {
+        $('#name').after('<div class="error-message text-danger">Name must contain only characters.</div>');
+        isValid = false;
+      }
+      
+      if (email.trim() === '') {
+        $('#email').after('<div class="error-message text-danger">Email is required.</div>');
+        isValid = false;
+      } else if (!isValidEmail(email)) {
+        $('#email').after('<div class="error-message text-danger">Invalid email format.</div>');
+        isValid = false;
+      }
+
+      if (phone_number.trim() === '') {
+        $('#phone_number').after('<div class="error-message text-danger">Phone number is required.</div>');
+        isValid = false;
+      } else if (!isValidPhoneNumber(phone_number)) {
+        $('#phone_number').after('<div class="error-message text-danger">Phone number must be exactly 10 digits.</div>');
+        isValid = false;
+      }
+
+      if (password.trim() === '') {
+        $('#password').after('<div class="error-message text-danger">Password is required.</div>');
+        isValid = false;
+      } else if (!isValidPassword(password)) {
+        $('#password').after('<div class="error-message text-danger">Password must be at least 8 characters long and contain at least one letter and one number.</div>');
+        isValid = false;
+      }
+      
+      // If form is valid, submit it
+      if (isValid) {
+        this.submit();
+      }
+    });
+
+      // Function to validate name (only characters)
+      function isValidName(name) {
+        var pattern = /^[a-zA-Z ]+$/;
+        return pattern.test(name);
+      }
+
+      // Function to validate email format
+      function isValidEmail(email) {
+        var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return pattern.test(email);
+      }
+
+      // Function to validate phone number (exactly 10 digits)
+      function isValidPhoneNumber(phone_number) {
+        var pattern = /^\d{10}$/;
+        return pattern.test(phone_number);
+      }
+
+      // Function to validate password
+function isValidPassword(password) {
+  // Password must be at least 8 characters long
+  if (password.length < 8) {
+    return false;
+  }
+
+  // Password must contain at least one letter and one number
+  var hasLetter = false;
+  var hasNumber = false;
+  for (var i = 0; i < password.length; i++) {
+    if (/[a-zA-Z]/.test(password[i])) {
+      hasLetter = true;
+    } else if (/\d/.test(password[i])) {
+      hasNumber = true;
+    }
+  }
+  if (!hasLetter || !hasNumber) {
+    return false;
+  }
+
+  // Optionally, you can add more criteria here such as requiring special characters
+  // For example, to require at least one special character:
+  // if (!/[!@#$%^&*]/.test(password)) {
+  //   return false;
+  // }
+
+  // Password meets all criteria
+  return true;
+}
+
+  });
+</script>
+
 <style>
     body {
         background: #E9F5F5;
