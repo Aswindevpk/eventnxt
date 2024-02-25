@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-{% include 'navbar.html' %}
+{% include 'vendor_navbar.html' %}
 <style>
     /* for the bookiing section  */
     .card {
@@ -78,7 +78,7 @@
         {% else %}
         <p class="text-warning">Not paid</p>
         {% endif %}
-        {% comment %} <a href="{% url "" %}" class="btn btn-danger">cancel booking</a> {% endcomment %}
+        <a href="{% url "rejectBooking" booking.id %}" class="btn btn-danger">cancel booking</a>
       </div>
     </div>
     {% endfor %}

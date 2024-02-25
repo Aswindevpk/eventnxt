@@ -4,6 +4,13 @@ from .models import *
 from vendors.models import *
 from django.db.models import Q
 
+def is_normaluser(request):
+    user_id = request.user.id
+    if UserProfile.objects.filter(user=user_id).exists():
+        return
+    else:
+        logout(request)
+        return redirect('user_login')
 
 
 def logoutUser(request):
@@ -12,6 +19,7 @@ def logoutUser(request):
 
 def user_home(request):
     if request.user.is_authenticated:
+        is_normaluser(request)
         venues = VendorProfile.objects.all()
         context = {'venues':venues}
         return render(request, 'usr_home.html',context)
@@ -21,10 +29,19 @@ def user_home(request):
 def search_venue(request):
     query = request.GET.get('query')
     if query:
-        results = VendorProfile.objects.filter(Q(business_name__icontains=query) | Q(category__icontains=query))
+        venues = VendorProfile.objects.filter(Q(business_name__icontains=query) | Q(category__icontains=query))
     else:
-        results = VendorProfile.objects.none()
-    context = {'venues':results}
+        venues = VendorProfile.objects.none()
+    context = {'venues':venues}
+    return render(request, 'usr_home.html',context)
+
+def search_venue_plain(request,txt):
+    query = txt
+    if query:
+        venues = VendorProfile.objects.filter(Q(business_name__icontains=query) | Q(category__icontains=query))
+    else:
+        venues = VendorProfile.objects.none()
+    context = {'venues':venues}
     return render(request, 'usr_home.html',context)
 
 def booking_details(request):
@@ -81,15 +98,18 @@ def user_register(request):
         email = request.POST.get('email')
         phone_number = request.POST.get('phone_number')
         password = request.POST.get('password')
-        
-        # Create a new Django user
-        user = User.objects.create_user(username=email, password=password)
 
-        # Create a user profile associated with the new user
-        profile = UserProfile.objects.create(user=user, name=name, phone_number=phone_number)
-        profile.save()
-        
-        return redirect('user_login') 
+                # Check if email already exists in the database
+        if User.objects.filter(username=email).exists():
+            return render(request, 'usr_register.html', {'error_message': f'Email address {email} is already registered.'})
+        else:
+            # Create a new Django user
+            user = User.objects.create_user(username=email, password=password)
+
+            # Create a user profile associated with the new user
+            profile = UserProfile.objects.create(user=user, name=name, phone_number=phone_number)
+            profile.save()
+            return redirect('user_login') 
     else:
         return render(request, 'usr_register.html')
     

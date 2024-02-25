@@ -53,27 +53,27 @@
 <div class="container-fluid">
     <div class="category-container">
         <div class="category-card">
-            <a href="">
+            <a href="{% url 'search_venue_plain' 'premium' %}">
                 <img src= {% static "assets/Premium_Venues.png" %} class="category-img" alt="Wedding">
             </a>
         </div>
         <div class="category-card">
-            <a href="">
+            <a href="{% url 'search_venue_plain' 'wedding' %}">
                 <img src={% static "assets/Weddings.png"%}  class="category-img" alt="Wedding">
             </a>
         </div>
         <div class="category-card">
-            <a href="">
+            <a href="{% url 'search_venue_plain' 'engagem' %}">
                 <img src= {% static "assets/Engagement.png" %}  class="category-img" alt="Wedding">
             </a>
         </div>
         <div class="category-card">
-            <a href="">
+            <a href="{% url 'search_venue_plain' 'birthday' %}">
                 <img src= {% static "assets/Birthday.png" %}  class="category-img" alt="Wedding">
             </a>
         </div>
         <div class="category-card">
-            <a href="">
+            <a href="{% url 'search_venue_plain' 'family' %}">
                 <img src= {% static "assets/Family_Functon.png" %}  class="category-img" alt="Wedding">
             </a>
         </div>
@@ -84,7 +84,7 @@
     <div class="booking-container">
         {% for venue in venues %}
         <div class="booking-card card">
-            <img src="media/{{venue.image}}" class="booking-img" alt="Category 1">
+            <img src="media/{{venue.image}}" class="booking-img">
             <div class="card-body">
                 <h5 class="card-title">{{venue.business_name}}</h5>
                 <span>

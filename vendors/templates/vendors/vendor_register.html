@@ -2,6 +2,141 @@
 {% load static %}
 {% block content %}
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.registration-form').submit(function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Clear any previous error messages
+            $('.error-message').remove();
+
+            // Perform form validation
+            var name = $('#name').val();
+            var city = $('#city').val();
+            var category = $('#category').val();
+            var email = $('#email').val();
+            var phone_number = $('#phone_number').val();
+            var capacity = $('#capacity').val();
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var isValid = true;
+
+            if (name.trim() === '') {
+                $('#name').after('<div class="error-message">Name of Business is required.</div>');
+                isValid = false;
+            }else if (!isValidName(name)) {
+                $('#name').after('<div class="error-message text-danger">Name must contain only characters.</div>');
+                isValid = false;
+            }
+
+            if (city.trim() === '') {
+                $('#city').after('<div class="error-message">City is required.</div>');
+                isValid = false;
+            }
+
+            if (category.trim() === '') {
+                $('#category').after('<div class="error-message">Category is required.</div>');
+                isValid = false;
+            }
+
+            if (email.trim() === '') {
+                $('#email').after('<div class="error-message">Email is required.</div>');
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                $('#email').after('<div class="error-message text-danger">Invalid email format.</div>');
+                isValid = false;
+            }
+
+            if (phone_number.trim() === '') {
+                $('#phone_number').after('<div class="error-message">Phone number is required.</div>');
+                isValid = false;
+            } else if (!isValidPhoneNumber(phone_number)) {
+                $('#phone_number').after('<div class="error-message text-danger">Invalid phone number format.</div>');
+                isValid = false;
+            }
+
+            if (capacity.trim() === '' || isNaN(capacity)) {
+                $('#capacity').after('<div class="error-message">Venue capacity must be a number.</div>');
+                isValid = false;
+            }
+
+            if (username.trim() === '') {
+                $('#username').after('<div class="error-message">Username is required.</div>');
+                isValid = false;
+            }else if (!isValidName(name)) {
+                $('#name').after('<div class="error-message text-danger">Name must contain only characters.</div>');
+                isValid = false;
+              }
+
+
+
+            if (password.trim() === '') {
+                $('#password').after('<div class="error-message text-danger">Password is required.</div>');
+                isValid = false;
+            }else if (!isValidPassword(password)) {
+                $('#password').after('<div class="error-message text-danger">Password must be at least 8 characters long and contain at least one letter and one number.</div>');
+                isValid = false;
+            }
+
+            // If form is valid, submit it
+            if (isValid) {
+                this.submit();
+            }
+        });
+
+
+        // Function to validate name (only characters)
+        function isValidName(name) {
+            var pattern = /^[a-zA-Z ]+$/;
+            return pattern.test(name);
+        }
+
+        // Function to validate email format
+        function isValidEmail(email) {
+            var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return pattern.test(email);
+        }
+
+        // Function to validate phone number format
+        function isValidPhoneNumber(phone_number) {
+            var pattern = /^\d{10}$/;
+            return pattern.test(phone_number);
+        }
+
+        //function to validate password
+        function isValidPassword(password) {
+            // Password must be at least 8 characters long
+            if (password.length < 8) {
+              return false;
+            }
+          
+            // Password must contain at least one letter and one number
+            var hasLetter = false;
+            var hasNumber = false;
+            for (var i = 0; i < password.length; i++) {
+              if (/[a-zA-Z]/.test(password[i])) {
+                hasLetter = true;
+              } else if (/\d/.test(password[i])) {
+                hasNumber = true;
+              }
+            }
+            if (!hasLetter || !hasNumber) {
+              return false;
+            }
+          
+            // Optionally, you can add more criteria here such as requiring special characters
+            // For example, to require at least one special character:
+            // if (!/[!@#$%^&*]/.test(password)) {
+            //   return false;
+            // }
+          
+            // Password meets all criteria
+            return true;
+          }
+    });
+</script>
+
 <style>
     body {
         background: #E9F5F5;
@@ -70,10 +205,11 @@
             <div class="form-group">
                 <select id="category" name="category" required>
                     <option value="" disabled selected>Select a Category</option>
-                    <option value="Weddding">Wedding</option>
-                    <option value="Birthday">Birthday</option>
-                    <option value="Reunion">Reunion</option>
-                    <option value="Family function">Family function</option>
+                    <option value="Weddding">premium_venue</option>
+                    <option value="Birthday">wedding</option>
+                    <option value="Reunion">engagement</option>
+                    <option value="Family function">bithday</option>
+                    <option value="Family function">family_function</option>
                 </select><br>
             </div>
             <div class="form-group">
@@ -113,6 +249,9 @@
                 <p>Already have an account? <a href={% url "vendor_login" %}>Log In</a></p>
             </div>
         </form>
+        {% if error_message %}
+        <p class="text-danger">{{ error_message }}</p>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}

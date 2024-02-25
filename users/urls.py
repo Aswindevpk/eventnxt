@@ -8,6 +8,7 @@ urlpatterns = [
     path('profile/',views.user_profile, name='user_profile'),
     path('venue_details/<str:pk>',views.venue_details, name='venue_details'),
     path('search_venue/',views.search_venue, name='search_venue'),
+    path('search_venue_plain/<str:txt>',views.search_venue_plain, name='search_venue_plain'),
     path('booking_details/',views.booking_details, name='booking_details'),
     path('booking_request/',views.booking_request, name='booking_request'),
     path('cancel_booking/<str:pk>',views.cancel_booking, name='cancel_booking'),

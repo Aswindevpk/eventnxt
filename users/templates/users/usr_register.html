@@ -173,6 +173,9 @@ function isValidPassword(password) {
           <p>Already have an account? <a href={% url "user_login" %}>Log In</a></p>
         </div>
       </form>
+      {% if error_message %}
+      <p class="text-danger">{{ error_message }}</p>
+  {% endif %}
     </div>
 </div>
 {% endblock content %}
